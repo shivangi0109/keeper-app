@@ -1,8 +1,8 @@
-const Note = () => {
+const Note = (props) => {
   return (
     <div className="note">
-      <h1>This is a title</h1>
-      <p>This is a content</p>
+      <h1>{props.title}</h1>
+      <p>{props.content}</p>
     </div>
   );
 }
