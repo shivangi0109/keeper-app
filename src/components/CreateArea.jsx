@@ -21,6 +21,10 @@ function CreateArea(props) {
   const submitNote = (event) => {
     event.preventDefault();
     props.onAdd(note);
+    setNote({
+      title: "",
+      content: "",
+    })
   };
 
   return (
