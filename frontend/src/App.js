@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Note from "./components/Note";
+import axios from 'axios';
 // import notes from "./notes";
 import CreateArea from "./components/CreateArea";
 import "./App.css";
@@ -9,6 +10,18 @@ import "./App.css";
 function App() {
   const [notes, setNotes] = useState([]);
   console.log(notes);
+
+  useEffect(() => {
+    axios
+      .get('/api/notes')
+      .then((res) => {
+        setNotes(res.data);
+        console.log(notes);
+      })
+      .catch((error) => {
+        console.error('Error loading notes:', error);
+      });
+  }, [notes]);
 
   const addItem = (note) => {
     setNotes((prevNote) => {
