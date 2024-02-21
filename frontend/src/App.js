@@ -21,7 +21,7 @@ function App() {
       .catch((error) => {
         console.error('Error loading notes:', error);
       });
-  }, [notes]);
+  }, []);
 
   const addItem = (note) => {
     setNotes((prevNote) => {
