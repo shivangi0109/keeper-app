@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import AddIcon from '@mui/icons-material/Add';
 import Fab from '@mui/material/Fab';
 import Zoom from '@mui/material/Zoom';
+import axios from 'axios';
 
 function CreateArea(props) {
-
+  // const formRef = useRef();
+  // const newNote = {};
   const [isExpanded, setIsExpanded] = useState(false);
   const [note, setNote] = useState({
     title: "",
@@ -25,11 +27,28 @@ function CreateArea(props) {
 
   const submitNote = (event) => {
     event.preventDefault();
-    props.onAdd(note);
-    setNote({
-      title: "",
-      content: "",
-    })
+    // props.onAdd(note);
+    // setNote({
+    //   title: "",
+    //   content: "",
+    // })
+
+    // const formData = new FormData(event.target);
+    // newNote.title = formData.get('title');
+    // newNote.content = formData.get('content');
+
+    axios
+      .post('/api/notes', note)
+      .then(() => {
+        props.onAdd(note);
+        setNote({
+          title: "",
+          content: "",
+        })
+      })
+      .catch((err) => {
+        console.log({ err });
+      });
   };
 
   const expand = () => {
