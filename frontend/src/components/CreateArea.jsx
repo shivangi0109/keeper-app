@@ -5,25 +5,25 @@ import Zoom from '@mui/material/Zoom';
 import axios from 'axios';
 
 function CreateArea(props) {
-  // const formRef = useRef();
-  // const newNote = {};
+  const formRef = useRef();
+  const newNote = {};
   const [isExpanded, setIsExpanded] = useState(false);
-  const [note, setNote] = useState({
-    title: "",
-    content: "",
-  });
-  console.log(note);
+  // const [note, setNote] = useState({
+  //   title: "",
+  //   content: "",
+  // });
+  // console.log(note);
 
-  const handleChange = (event) => {
-    const { name, value } = event.target;
+  // const handleChange = (event) => {
+  //   const { name, value } = event.target;
 
-    setNote((prevNote) => {
-      return {
-        ...prevNote,
-        [name]: value,
-      };
-    });
-  };
+  //   setNote((prevNote) => {
+  //     return {
+  //       ...prevNote,
+  //       [name]: value,
+  //     };
+  //   });
+  // };
 
   const submitNote = (event) => {
     event.preventDefault();
@@ -33,18 +33,15 @@ function CreateArea(props) {
     //   content: "",
     // })
 
-    // const formData = new FormData(event.target);
-    // newNote.title = formData.get('title');
-    // newNote.content = formData.get('content');
+    const formData = new FormData(event.target);
+    newNote.title = formData.get('title');
+    newNote.content = formData.get('content');
 
     axios
-      .post('/api/notes', note)
+      .post('/api/notes', newNote)
       .then(() => {
-        props.onAdd(note);
-        setNote({
-          title: "",
-          content: "",
-        })
+        props.onAdd(newNote);
+        formRef.current.reset();
       })
       .catch((err) => {
         console.log({ err });
@@ -58,8 +55,8 @@ function CreateArea(props) {
   return (
     <div>
       <form onSubmit={submitNote} className="create-note">
-        { isExpanded && <input onChange={handleChange} name="title" placeholder="Title" value={note.title} /> }
-        <textarea onClick={expand} onChange={handleChange} name="content" placeholder="Take a note..." rows={isExpanded ? "3" : "1"} value={note.content} />
+        { isExpanded && <input name="title" placeholder="Title" /> }
+        <textarea onClick={expand} name="content" placeholder="Take a note..." rows={isExpanded ? "3" : "1"} />
         <Zoom in={isExpanded ? true : false}>
           <Fab type="submit">
             <AddIcon />
