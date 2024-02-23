@@ -6,4 +6,25 @@ const getNotes = () => {
   });
 };
 
-module.exports = { getNotes };
+const addNote = (note) => {
+  const {
+    user_id,
+    title,
+    content,
+  } = note;
+  // Add RETURNING *; to the end of an INSERT query to return the objects that were inserted. This is handy when you need the auto generated id of an object you've just added to the database
+  return db
+    .query(
+      'INSERT INTO notes (user_id, title, content) VALUES ($1, $2, $3) RETURNING *;',
+      [
+        user_id,
+        title,
+        content,
+      ]
+    )
+    .then((data) => {
+      return data.rows[0];
+    });
+};
+
+module.exports = { getNotes, addNote };

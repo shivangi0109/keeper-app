@@ -15,4 +15,20 @@ router.get('/', (req, res) => {
     });
 });
 
+// Add New Note
+router.post('/', (req, res) => {
+  const newNote = req.body;
+  newNote.user_id = 1;
+
+  noteQueries
+    .addNote(newNote)
+    .then(() => {
+      res.json('Note added successfully! 😃');
+    })
+    .catch((err) => {
+      console.error({ err });
+      res.status(500).json({ error: 'Failed to add note! ☹️' });
+    });
+});
+
 module.exports = router;
