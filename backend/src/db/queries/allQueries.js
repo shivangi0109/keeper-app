@@ -27,4 +27,12 @@ const addNote = (note) => {
     });
 };
 
-module.exports = { getNotes, addNote };
+const deleteNote = (noteId) => {
+  return db
+    .query('DELETE FROM notes WHERE id = $1 RETURNING *;', [noteId])
+    .then(() => {
+      return { message: 'Note deleted successfully' };
+    });
+};
+
+module.exports = { getNotes, addNote, deleteNote };

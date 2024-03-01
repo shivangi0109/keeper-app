@@ -31,4 +31,19 @@ router.post('/', (req, res) => {
     });
 });
 
+// Delete Note
+router.delete('/:id', (req, res) => {
+  const noteId = req.params.id;
+
+  noteQueries
+    .deleteNote(noteId)
+    .then(() => {
+      res.json('Note removed successfully! 😃');
+    })
+    .catch((err) => {
+      console.error({ err });
+      res.status(500).json({ error: 'Failed to remove note! ☹️' });
+    });
+});
+
 module.exports = router;
