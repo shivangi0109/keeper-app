@@ -34,7 +34,7 @@ router.post('/', (req, res) => {
 // Delete Note
 router.delete('/:id', (req, res) => {
   const noteId = req.params.id;
-
+  console.log(noteId);
   noteQueries
     .deleteNote(noteId)
     .then(() => {

@@ -30,9 +30,10 @@ function App() {
   };
 
   const deleteNote = (id) => {
+    console.log(notes);
     setNotes((prevNote) => {
       return prevNote.filter((noteItem, index) => {
-        return index !== id;
+        return noteItem.note_id !== id;
       });
     });
   };
@@ -42,7 +43,7 @@ function App() {
       <Header />
       <CreateArea onAdd={addItem} />
       {notes.map((note, index) => (
-          <Note key={index} id={index} title={note.title} content={note.content} onDelete={deleteNote} />
+          <Note key={note.note_id} id={note.note_id} title={note.title} content={note.content} onDelete={deleteNote} />
         )
       )}
       <Footer />

@@ -29,7 +29,7 @@ const addNote = (note) => {
 
 const deleteNote = (noteId) => {
   return db
-    .query('DELETE FROM notes WHERE id = $1 RETURNING *;', [noteId])
+    .query('DELETE FROM notes WHERE note_id = $1 RETURNING *;', [noteId])
     .then(() => {
       return { message: 'Note deleted successfully' };
     });
